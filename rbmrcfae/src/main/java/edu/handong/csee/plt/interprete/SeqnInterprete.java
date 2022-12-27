@@ -18,8 +18,7 @@ public class SeqnInterprete extends BinaryInterprete {
         interpreter.setMethod(new SetVarInterprete());
 
         if (ast instanceof Seqn) {
-            return binaryInterprete(interpreter, 
-                                    ((Seqn) ast).getLhs(), 
+            return binaryInterprete(((Seqn) ast).getLhs(), 
                                     ((Seqn) ast).getRhs(), 
                                     variable, memory);
         }

@@ -3,7 +3,7 @@ package edu.handong.csee.plt.interprete;
 import edu.handong.csee.plt.Interpreter;
 import edu.handong.csee.plt.ast.AST;
 import edu.handong.csee.plt.exception.InterpreteException;
-import edu.handong.csee.plt.exception.handler.interprete.ValueTypeExceptionHandler;
+import edu.handong.csee.plt.exception.handler.interprete.InterpreteExceptionHandler;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
@@ -12,7 +12,7 @@ import edu.handong.csee.plt.structure.store.Variable;
  * Class that represents interprete methods.
  */
 public abstract class Interprete {
-    protected ValueTypeExceptionHandler valueTypeExceptionHandler;
+    protected InterpreteExceptionHandler handler;
 
     /**
      * Interpretes the given ast to appropriate <code>ValueWithLog</code> instance.

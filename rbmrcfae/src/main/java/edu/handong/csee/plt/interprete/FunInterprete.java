@@ -15,7 +15,7 @@ public class FunInterprete extends Interprete {
     @Override
     public ValueWithLog interprete(Interpreter interpreter, 
                                    AST ast, Variable variable, Memory memory) {
-        interpreter.setMethod(new AppInterprete());
+        interpreter.setMethod(new DefaultAppInterprete());
 
         if (ast instanceof ValFun) {
             return new ValueWithLog(

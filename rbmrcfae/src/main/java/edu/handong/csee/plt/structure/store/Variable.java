@@ -1,5 +1,7 @@
 package edu.handong.csee.plt.structure.store;
 
+import edu.handong.csee.plt.exception.FreeVariableException;
+
 public class Variable {
     private String id;
     private int address;
@@ -15,8 +17,9 @@ public class Variable {
      * Finds the address of the first encountering given id.
      * @param id id
      * @return address of the first encountering id if the id is in the linked list, otherwise -1
+     * @throws FreeVariableException
      */
-    public int find(String id) {
+    public int find(String id) throws FreeVariableException {
         Variable curr = this;
 
         while (curr != null) {
@@ -25,7 +28,7 @@ public class Variable {
             }
             curr = curr.next;
         }
-        return -1;
+        throw new FreeVariableException(id);
     }
 
     public String getASTCode() {

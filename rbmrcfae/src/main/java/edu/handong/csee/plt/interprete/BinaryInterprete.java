@@ -21,18 +21,18 @@ public abstract class BinaryInterprete extends Interprete {
      * @return the appropriate <code>ValueWithLog</code> instance
      * @throws InterpreteException
      */
-    public ValueWithLog binaryInterprete(Interpreter interpreter, 
-            AST lhs, AST rhs, Variable variable, Memory memory) 
-                    throws InterpreteException {
+    public ValueWithLog binaryInterprete(AST lhs, AST rhs, 
+                                         Variable variable, Memory memory) 
+                                            	throws InterpreteException {
         ValueWithLog lhsVwl, rhsVwl;
         Value lhsValue, rhsValue;
 
-        lhsVwl = interpreter.interprete(lhs, variable, memory);
+        lhsVwl = new Interpreter().interprete(lhs, variable, memory);
         lhsValue = lhsVwl.getValue().strict();
 
         checkLhs(lhsValue, lhs);
         
-        rhsVwl = interpreter.interprete(rhs, variable, lhsVwl.getMemory());
+        rhsVwl = new Interpreter().interprete(rhs, variable, lhsVwl.getMemory());
         rhsValue = rhsVwl.getValue().strict();
 
         checkRhs(rhsValue, rhs);

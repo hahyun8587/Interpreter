@@ -1,5 +1,5 @@
 package edu.handong.csee.plt.util;
 
 public class Option {
-    public static boolean UnwrapExpressionValue = false;
+    public static boolean UnwrapExpressionValue = true;
 }

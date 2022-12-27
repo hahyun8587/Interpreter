@@ -6,6 +6,7 @@ import edu.handong.csee.plt.ast.Sub;
 import edu.handong.csee.plt.exception.CannotEvaluateException;
 import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.exception.handler.interprete.NumberValueTypeExceptionHandler;
+import edu.handong.csee.plt.exception.handler.interprete.ValueTypeExceptionHandler;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
@@ -15,7 +16,7 @@ import edu.handong.csee.plt.structure.value.Value;
 public class SubInterprete extends BinaryInterprete {
 
     public SubInterprete() {
-        valueTypeExceptionHandler = new NumberValueTypeExceptionHandler();
+        handler = new NumberValueTypeExceptionHandler();
     }
 
     @Override 
@@ -25,8 +26,7 @@ public class SubInterprete extends BinaryInterprete {
         interpreter.setMethod(new MulInterprete());
 
         if (ast instanceof Sub) {
-            return binaryInterprete(interpreter, 
-                                    ((Sub) ast).getLhs(), ((Sub) ast).getRhs(), 
+            return binaryInterprete(((Sub) ast).getLhs(), ((Sub) ast).getRhs(), 
                                     variable, memory);         
         }
         return null; 
@@ -35,13 +35,13 @@ public class SubInterprete extends BinaryInterprete {
     @Override 
     protected void checkLhs(Value value, AST ast) 
             throws CannotEvaluateException {
-        valueTypeExceptionHandler.handleException(value, ast);
+        ((ValueTypeExceptionHandler)handler).handleException(value, ast);
     }
 
     @Override 
     protected void checkRhs(Value value, AST ast) 
             throws CannotEvaluateException {
-        valueTypeExceptionHandler.handleException(value, ast);
+        ((ValueTypeExceptionHandler)handler).handleException(value, ast);
     }
 
     @Override 

@@ -1,6 +1,7 @@
 package edu.handong.csee.plt.structure.store;
 
 import edu.handong.csee.plt.exception.InterpreteException;
+import edu.handong.csee.plt.exception.MemoryNotAllocatedException;
 import edu.handong.csee.plt.structure.value.Value;
 
 public class Memory {
@@ -24,8 +25,9 @@ public class Memory {
      * Finds the value of the first encountering given address.
      * @param address address
      * @return value of the first encountering given address if the address is in the linked list, otherwise <code>null</code>
+     * @throws MemoryNotAllocatedException
      */
-    public Value find(int address) {
+    public Value find(int address) throws MemoryNotAllocatedException {
         Memory curr = this;
 
         while (curr != null) {
@@ -34,7 +36,7 @@ public class Memory {
             }
             curr = curr.next;
         }
-        return null;
+        throw new MemoryNotAllocatedException(address);
     }
 
     public String getASTCode() throws InterpreteException {

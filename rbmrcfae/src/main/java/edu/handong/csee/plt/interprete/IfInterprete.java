@@ -17,7 +17,7 @@ public class IfInterprete extends Interprete {
     public ValueWithLog interprete(Interpreter interpreter,
                                    AST ast, Variable variable, Memory memory)    
                                         throws InterpreteException {
-        interpreter.setMethod(new RecInterprete());
+        interpreter.setMethod(new NewBoxInterprete());
         
         if (ast instanceof If) {
             If node = (If) ast;

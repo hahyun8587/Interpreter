@@ -21,8 +21,7 @@ public class OrInterprete extends BinaryInterprete {
         interpreter.setMethod(new IdInterprete());
 
         if (ast instanceof Or) {
-            return binaryInterprete(interpreter, 
-                                    ((Or) ast).getLhs(), ((Or) ast).getRhs(), 
+            return binaryInterprete(((Or) ast).getLhs(), ((Or) ast).getRhs(), 
                                     variable, memory);
         }
         return null;          

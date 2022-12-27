@@ -13,6 +13,6 @@ public class InvalidASTException extends InterpreteException {
 
     @Override 
     public String getMessage() {
-        return "interprete error: invalid AST node.\n";
+        return "interprete error: invalid AST node in " + ast.getASTCode();
     }
 }

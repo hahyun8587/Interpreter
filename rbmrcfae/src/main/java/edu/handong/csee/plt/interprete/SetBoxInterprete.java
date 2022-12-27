@@ -6,6 +6,7 @@ import edu.handong.csee.plt.ast.SetBox;
 import edu.handong.csee.plt.exception.CannotEvaluateException;
 import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.exception.handler.interprete.BoxValueTypeExceptionHandler;
+import edu.handong.csee.plt.exception.handler.interprete.ValueTypeExceptionHandler;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
@@ -15,7 +16,7 @@ import edu.handong.csee.plt.structure.value.Value;
 public class SetBoxInterprete extends BinaryInterprete {
     
     public SetBoxInterprete() {
-        valueTypeExceptionHandler = new BoxValueTypeExceptionHandler();
+        handler = new BoxValueTypeExceptionHandler();
     }
 
     @Override 
@@ -25,8 +26,7 @@ public class SetBoxInterprete extends BinaryInterprete {
         interpreter.setMethod(new OpenBoxInterprete());
         
         if (ast instanceof SetBox) {
-            return binaryInterprete(interpreter, 
-                                    ((SetBox) ast).getLhs(), 
+            return binaryInterprete(((SetBox) ast).getLhs(), 
                                     ((SetBox) ast).getRhs(), 
                                     variable, memory);
         }
@@ -36,7 +36,7 @@ public class SetBoxInterprete extends BinaryInterprete {
     @Override 
     protected void checkLhs(Value value, AST ast) 
             throws CannotEvaluateException { 
-        valueTypeExceptionHandler.handleException(value, ast);
+        ((ValueTypeExceptionHandler) handler).handleException(value, ast);
     }
 
     @Override 
