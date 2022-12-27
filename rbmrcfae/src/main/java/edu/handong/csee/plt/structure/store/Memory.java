@@ -23,8 +23,9 @@ public class Memory {
 
      /**
      * Finds the value of the first encountering given address.
+     * Exception will be thrown if there is no corresponding value of the given address.
      * @param address address
-     * @return value of the first encountering given address if the address is in the linked list, otherwise <code>null</code>
+     * @return value of the first encountering given address if the address is in the linked list
      * @throws MemoryNotAllocatedException
      */
     public Value find(int address) throws MemoryNotAllocatedException {

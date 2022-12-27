@@ -1,5 +1,8 @@
 package edu.handong.csee.plt.exception;
 
+/**
+ * Thrown when threre is an access on unallocated memory.
+ */
 public class MemoryNotAllocatedException extends InterpreteException {
     
     public MemoryNotAllocatedException(int address) {

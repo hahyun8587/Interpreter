@@ -1,5 +1,8 @@
 package edu.handong.csee.plt.exception;
 
+/**
+ * Thrown when there are free variables.
+ */
 public class FreeVariableException extends InterpreteException {
 
     public FreeVariableException(String id) {

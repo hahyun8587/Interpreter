@@ -30,7 +30,7 @@ public class ExpressionValue extends Value {
                                   .getValue()
                                   .strict();
     }
-
+    
     @Override 
     public String getASTCode() throws InterpreteException {
         if (Option.UnwrapExpressionValue) {

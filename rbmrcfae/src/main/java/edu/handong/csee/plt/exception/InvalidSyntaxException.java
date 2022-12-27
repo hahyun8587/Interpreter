@@ -1,7 +1,7 @@
 package edu.handong.csee.plt.exception;
 
 /**
- * Thrown when the given expression is has an invalid syntax.
+ * Thrown when the given expression has an invalid syntax.
  */
 public class InvalidSyntaxException extends ParseException {
     

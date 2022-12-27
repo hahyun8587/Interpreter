@@ -15,8 +15,9 @@ public class Variable {
 
     /**
      * Finds the address of the first encountering given id.
+     * Exception will be thrwon if there is no corresponding address of the given id.
      * @param id id
-     * @return address of the first encountering id if the id is in the linked list, otherwise -1
+     * @return address of the first encountering id if the id is in the linked list
      * @throws FreeVariableException
      */
     public int find(String id) throws FreeVariableException {
