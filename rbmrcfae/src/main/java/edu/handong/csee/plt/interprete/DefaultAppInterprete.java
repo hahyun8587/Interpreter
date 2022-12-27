@@ -30,7 +30,6 @@ public class DefaultAppInterprete extends ValAppInterprete {
                                                 throws InterpreteException {
         functionVwl = new Interpreter().interprete(function, variable, memory);
         functionValue = functionVwl.getValue().strict();
-        //System.out.printf("functionValue in DefaultAppInterprete: %s", functionValue.getASTCode()); 
         
         return functionValue instanceof ValClosureValue ? true : false;
     }

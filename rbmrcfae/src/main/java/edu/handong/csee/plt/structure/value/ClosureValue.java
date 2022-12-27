@@ -31,8 +31,8 @@ public abstract class ClosureValue extends Value {
         return this;
     }
 
-    public String getClosureValueASTCode(String value) {
-        return "(" + value + " " + parameter + " " 
+    public String getClosureValueASTCode(String node) {
+        return "(" + node + " '" + parameter + " " 
                + body.getASTCode() + " " 
                + (variable == null ? "(mtSub)" : variable.getASTCode()) + ")"; 
     }

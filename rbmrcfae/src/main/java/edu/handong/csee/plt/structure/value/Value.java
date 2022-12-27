@@ -1,6 +1,7 @@
 package edu.handong.csee.plt.structure.value;
 
 import edu.handong.csee.plt.exception.InterpreteException;
+import edu.handong.csee.plt.structure.ValueWithLog;
 
 /**
  * Class that represents output value.

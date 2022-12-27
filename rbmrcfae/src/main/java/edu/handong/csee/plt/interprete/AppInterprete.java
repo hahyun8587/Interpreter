@@ -33,28 +33,28 @@ public abstract class AppInterprete extends Interprete {
 			return null;
 		}
 		
-		System.out.println("functionVwl in appInterprete: " + functionVwl.getASTCode());
+		//System.out.println("functionVwl in appInterprete: " + functionVwl.getASTCode());
 
-		System.out.println("function strict value in appInterprete: " + functionValue.getASTCode());
+		//System.out.println("function strict value in appInterprete: " + functionValue.getASTCode());
 
         checkArgumentType(node.getArgument());
 
         int address = getAddress(functionVwl.getMemory(), 
                                  variable, node.getArgument());
 		
-		System.out.printf("address in appInterprete: %d\n", address);
+		//System.out.printf("address in appInterprete: %d\n", address);
         
 		Variable updated = 
                 new Variable(((ClosureValue) functionValue).getParameter(), 
                 			 address,
                 			 ((ClosureValue) functionValue).getVariable());
-		
+		/** 
 		System.out.printf("variables in appInterprete: %s\n", updated.getASTCode());
         System.out.printf("memory in appInterprete: %s\n", 
 						  createMemory(address, 
 									   node.getArgument(), variable, updated, 
 									   functionVwl.getMemory()).getASTCode());
-
+		**/
         ValueWithLog retVwl =  
                 interpreter.interprete(
                         ((ClosureValue) functionValue).getBody(),
