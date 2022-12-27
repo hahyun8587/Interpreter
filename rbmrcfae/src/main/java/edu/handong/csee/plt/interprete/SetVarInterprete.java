@@ -20,7 +20,8 @@ public class SetVarInterprete extends Interprete {
         if (ast instanceof SetVar) {
             SetVar node = (SetVar) ast;
             ValueWithLog valueVwl = 
-                    interpreter.interprete(node.getValue(), variable, memory);
+                    new Interpreter().interprete(node.getValue(), 
+                                                 variable, memory);
             Value valueValue = valueVwl.getValue().strict();
     
             return new ValueWithLog(

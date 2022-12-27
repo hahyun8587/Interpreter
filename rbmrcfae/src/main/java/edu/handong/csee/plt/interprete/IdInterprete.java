@@ -18,7 +18,6 @@ public class IdInterprete extends Interprete {
         interpreter.setMethod(new FunInterprete());
 
         if (ast instanceof Id) {
-            //System.out.printf("%s\n", memory.find(variable.find(((Id) ast).getName())).getASTCode());
             return new ValueWithLog(
                     memory.find(variable.find(((Id) ast).getName())), 
                     memory);

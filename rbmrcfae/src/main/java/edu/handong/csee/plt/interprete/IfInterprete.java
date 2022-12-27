@@ -22,19 +22,21 @@ public class IfInterprete extends Interprete {
         if (ast instanceof If) {
             If node = (If) ast;
             ValueWithLog testVwl = 
-                    interpreter.interprete(node.getTestExpression(), 
-                                           variable, memory);
+                    new Interpreter().interprete(node.getTestExpression(), 
+                                                 variable, memory);
             Value testValue = testVwl.getValue().strict();
             
             if ((testValue instanceof BooleanValue 
                     && !((BooleanValue) testValue).getBool())
                             || (testValue instanceof NumberValue 
                                 && ((NumberValue) testValue).getNumber() == 0)) {
-                return interpreter.interprete(node.getElseExpression(), 
-                                              variable, testVwl.getMemory());
+                return new Interpreter().interprete(
+                        node.getElseExpression(), 
+                        variable, testVwl.getMemory());
             } else {
-                return interpreter.interprete(node.getThenExpression(),
-                                              variable, testVwl.getMemory());
+                return new Interpreter().interprete(
+                        node.getThenExpression(),
+                        variable, testVwl.getMemory());
             }
         }
         return null;

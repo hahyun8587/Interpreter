@@ -29,8 +29,7 @@ public class RecInterprete extends ValAppInterprete {
         if (ast instanceof Rec) {
             Rec node = (Rec) ast;
 
-            return appInterprete(interpreter, 
-                                 new App(new ValFun(node.getFunctionName(), 
+            return appInterprete(new App(new ValFun(node.getFunctionName(), 
                                                     node.getExpression()), 
                                          node.getFunction()), 
                                  variable, memory); 

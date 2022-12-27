@@ -21,7 +21,8 @@ public class NewBoxInterprete extends Interprete {
         if (ast instanceof NewBox) {
             NewBox node = (NewBox) ast;
             ValueWithLog valueVwl = 
-                    interpreter.interprete(node.getValue(), variable, memory);
+                    new Interpreter().interprete(node.getValue(), 
+                                                 variable, memory);
             Value valueValue = valueVwl.getValue().strict();
             int address = 
                     valueVwl.getMemory() == null 

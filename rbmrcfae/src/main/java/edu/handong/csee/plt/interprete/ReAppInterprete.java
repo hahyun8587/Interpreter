@@ -27,7 +27,7 @@ public class ReAppInterprete extends AppInterprete {
         interpreter.setMethod(new RecInterprete());
 
         if (ast instanceof App) {
-            return appInterprete(interpreter, (App) ast, variable, memory);
+            return appInterprete((App) ast, variable, memory);
         }
         return null;
     }

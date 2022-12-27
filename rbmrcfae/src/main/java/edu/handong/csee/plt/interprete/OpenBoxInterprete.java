@@ -27,8 +27,8 @@ public class OpenBoxInterprete extends Interprete {
         if (ast instanceof OpenBox) {
             OpenBox node = (OpenBox) ast;
             ValueWithLog boxVwl = 
-                    interpreter.interprete(node.getBox(), 
-                                           variable, memory);
+                    new Interpreter().interprete(node.getBox(), 
+                                                 variable, memory);
             Value boxValue = boxVwl.getValue().strict();                  
 
             ((ValueTypeExceptionHandler)handler).handleException(boxValue, 

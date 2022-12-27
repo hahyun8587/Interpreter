@@ -19,7 +19,7 @@ public class DefaultAppInterprete extends ValAppInterprete {
         interpreter.setMethod(new ReAppInterprete());
 
         if (ast instanceof App) {
-            return appInterprete(interpreter, (App) ast, variable, memory);
+            return appInterprete((App) ast, variable, memory);
         }
         return null;
     }

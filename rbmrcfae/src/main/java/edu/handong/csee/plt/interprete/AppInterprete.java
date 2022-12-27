@@ -25,10 +25,9 @@ public abstract class AppInterprete extends Interprete {
      * @return the appropriate <code>ValueWithLog</code> instance
 	 * @throws InterpreteException
      */
-    public ValueWithLog appInterprete(Interpreter interpreter, 
-			App node, Variable variable, Memory memory) 
-            		throws InterpreteException {
-        
+    public ValueWithLog appInterprete(App node, 
+									  Variable variable, Memory memory) 
+            								throws InterpreteException { 
 		if (!checkFunctionType(node.getFunction(), variable, memory)) {
 			return null;
 		}
@@ -56,7 +55,7 @@ public abstract class AppInterprete extends Interprete {
 									   functionVwl.getMemory()).getASTCode());
 		**/
         ValueWithLog retVwl =  
-                interpreter.interprete(
+                new Interpreter().interprete(
                         ((ClosureValue) functionValue).getBody(),
                         updated, 
                         createMemory(address, 
