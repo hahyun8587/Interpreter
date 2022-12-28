@@ -24,19 +24,21 @@ public class IfInterprete extends Interprete {
             ValueWithLog testVwl = 
                     new Interpreter().interprete(node.getTestExpression(), 
                                                  variable, memory);
-            Value testValue = testVwl.getValue().strict();
-            
+            ValueWithLog testStrictVwl = 
+                    testVwl.getValue().strict(testVwl.getMemory());
+            Value testValue = testStrictVwl.getValue();
+
             if ((testValue instanceof BooleanValue 
                     && !((BooleanValue) testValue).getBool())
                             || (testValue instanceof NumberValue 
                                 && ((NumberValue) testValue).getNumber() == 0)) {
                 return new Interpreter().interprete(
                         node.getElseExpression(), 
-                        variable, testVwl.getMemory());
+                        variable, testStrictVwl.getMemory());
             } else {
                 return new Interpreter().interprete(
                         node.getThenExpression(),
-                        variable, testVwl.getMemory());
+                        variable, testStrictVwl.getMemory());
             }
         }
         return null;

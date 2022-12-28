@@ -10,11 +10,10 @@ import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
 import edu.handong.csee.plt.structure.value.ClosureValue;
-import edu.handong.csee.plt.structure.value.Value;
 
 public abstract class AppInterprete extends Interprete {
 	protected static ValueWithLog functionVwl;
-	protected static Value functionValue;
+	protected static ValueWithLog functionStrictVwl;
 
     /**
      * Interpretes the given binding AST node into the appropriate <code>ValueWithLog</code> instance.
@@ -32,38 +31,40 @@ public abstract class AppInterprete extends Interprete {
 			return null;
 		}
 		
-		//System.out.println("functionVwl in appInterprete: " + functionVwl.getASTCode());
+		System.out.println("functionVwl in appInterprete: " + functionVwl.getASTCode());
 
-		//System.out.println("function strict value in appInterprete: " + functionValue.getASTCode());
+		System.out.println("function strict value in appInterprete: " + functionStrictVwl.getValue().getASTCode());
 
         checkArgumentType(node.getArgument());
 
-        int address = getAddress(functionVwl.getMemory(), 
+        int address = getAddress(functionStrictVwl.getMemory(), 
                                  variable, node.getArgument());
 		
-		//System.out.printf("address in appInterprete: %d\n", address);
+		System.out.printf("address in appInterprete: %d\n", address);
         
 		Variable updated = 
-                new Variable(((ClosureValue) functionValue).getParameter(), 
+                new Variable(((ClosureValue) functionStrictVwl.getValue()).getParameter(), 
                 			 address,
-                			 ((ClosureValue) functionValue).getVariable());
-		/** 
+                			 ((ClosureValue) functionStrictVwl.getValue()).getVariable());
+		
 		System.out.printf("variables in appInterprete: %s\n", updated.getASTCode());
         System.out.printf("memory in appInterprete: %s\n", 
 						  createMemory(address, 
 									   node.getArgument(), variable, updated, 
-									   functionVwl.getMemory()).getASTCode());
-		**/
+									   functionStrictVwl.getMemory()).getASTCode());
+		
         ValueWithLog retVwl =  
                 new Interpreter().interprete(
-                        ((ClosureValue) functionValue).getBody(),
+                        ((ClosureValue) functionStrictVwl.getValue()).getBody(),
                         updated, 
                         createMemory(address, 
 									 node.getArgument(), variable, updated, 
-									 functionVwl.getMemory()));
+									 functionStrictVwl.getMemory()));
+		ValueWithLog retStrictVwl = 
+				retVwl.getValue().strict(retVwl.getMemory());
 
-        return new ValueWithLog(retVwl.getValue().strict(), 
-                                retVwl.getMemory());  
+        return new ValueWithLog(retStrictVwl.getValue(), 
+                                retStrictVwl.getMemory());  
     }
 
 	/**

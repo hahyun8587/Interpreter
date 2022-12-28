@@ -7,7 +7,6 @@ import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
-import edu.handong.csee.plt.structure.value.Value;
 
 public class SetVarInterprete extends Interprete {
     
@@ -22,14 +21,15 @@ public class SetVarInterprete extends Interprete {
             ValueWithLog valueVwl = 
                     new Interpreter().interprete(node.getValue(), 
                                                  variable, memory);
-            Value valueValue = valueVwl.getValue().strict();
+            ValueWithLog valueStrictVwl = 
+                    valueVwl.getValue().strict(valueVwl.getMemory());
     
             return new ValueWithLog(
-                    valueValue, 
+                    valueStrictVwl.getValue(), 
                     new Memory(variable.find(node.getName()),
-                               valueValue,
-                               valueVwl.getMemory(),
-                               valueVwl.getMemory().getMaxAddress()));
+                               valueStrictVwl.getValue(),
+                               valueStrictVwl.getMemory(),
+                               valueStrictVwl.getMemory().getMaxAddress()));
         }
         return null;
     }

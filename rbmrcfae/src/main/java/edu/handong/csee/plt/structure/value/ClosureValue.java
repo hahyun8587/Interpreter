@@ -1,6 +1,8 @@
 package edu.handong.csee.plt.structure.value;
 
 import edu.handong.csee.plt.ast.AST;
+import edu.handong.csee.plt.structure.ValueWithLog;
+import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
 
 public abstract class ClosureValue extends Value {
@@ -27,8 +29,8 @@ public abstract class ClosureValue extends Value {
     }
 
     @Override 
-    public Value strict() {
-        return this;
+    public ValueWithLog strict(Memory memory) {
+        return new ValueWithLog(this, memory);
     }
 
     public String getClosureValueASTCode(String node) {

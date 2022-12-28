@@ -25,19 +25,23 @@ public abstract class BinaryInterprete extends Interprete {
                                          Variable variable, Memory memory) 
                                             	throws InterpreteException {
         ValueWithLog lhsVwl, rhsVwl;
-        Value lhsValue, rhsValue;
+        ValueWithLog lhsStrictVwl, rhsStrictVwl;
 
         lhsVwl = new Interpreter().interprete(lhs, variable, memory);
-        lhsValue = lhsVwl.getValue().strict();
+        lhsStrictVwl = lhsVwl.getValue().strict(lhsVwl.getMemory());
 
-        checkLhs(lhsValue, lhs);
+        checkLhs(lhsStrictVwl.getValue(), lhs);
         
-        rhsVwl = new Interpreter().interprete(rhs, variable, lhsVwl.getMemory());
-        rhsValue = rhsVwl.getValue().strict();
+        System.out.println(lhsStrictVwl.getMemory().getASTCode());
+        System.out.println(lhsStrictVwl.getValue().getASTCode());
+        
+        rhsVwl = new Interpreter().interprete(rhs, variable, lhsStrictVwl.getMemory());
+        rhsStrictVwl = rhsVwl.getValue().strict(rhsVwl.getMemory());
 
-        checkRhs(rhsValue, rhs);
+        checkRhs(rhsStrictVwl.getValue(), rhs);
 
-        return createInstance(lhsValue, rhsValue, rhsVwl.getMemory());
+        return createInstance(lhsStrictVwl.getValue(), rhsStrictVwl.getValue(), 
+                              rhsStrictVwl.getMemory());
     }
 
     /**

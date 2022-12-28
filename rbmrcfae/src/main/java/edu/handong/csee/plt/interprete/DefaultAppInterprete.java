@@ -29,9 +29,11 @@ public class DefaultAppInterprete extends ValAppInterprete {
                                         Variable variable, Memory memory) 
                                                 throws InterpreteException {
         functionVwl = new Interpreter().interprete(function, variable, memory);
-        functionValue = functionVwl.getValue().strict();
+        functionStrictVwl = 
+                functionVwl.getValue()
+                           .strict(functionVwl.getMemory());
         
-        return functionValue instanceof ValClosureValue ? true : false;
+        return functionStrictVwl.getValue() instanceof ValClosureValue;
     }
 
     @Override 

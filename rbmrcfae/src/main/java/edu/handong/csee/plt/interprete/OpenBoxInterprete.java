@@ -10,7 +10,6 @@ import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
 import edu.handong.csee.plt.structure.value.BoxValue;
-import edu.handong.csee.plt.structure.value.Value;
 
 public class OpenBoxInterprete extends Interprete {
     
@@ -29,14 +28,21 @@ public class OpenBoxInterprete extends Interprete {
             ValueWithLog boxVwl = 
                     new Interpreter().interprete(node.getBox(), 
                                                  variable, memory);
-            Value boxValue = boxVwl.getValue().strict();                  
+            ValueWithLog boxStrictVwl = 
+                    boxVwl.getValue().strict(boxVwl.getMemory());
+            
+            System.out.printf("boxValue without strict in OpenBoxInterprete: %s\n", boxStrictVwl.getValue().getASTCode());   
+            System.out.printf("memory in OpenBoxInterprete: %s\n", boxStrictVwl.getMemory().getASTCode());                  
+            System.out.println(boxStrictVwl.getValue().getASTCode());
 
-            ((ValueTypeExceptionHandler)handler).handleException(boxValue, 
+            ((ValueTypeExceptionHandler)handler).handleException(boxStrictVwl.getValue(), 
                                                                 node.getBox()); 
             
             return new ValueWithLog(
-                boxVwl.getMemory().find(((BoxValue) boxValue).getAddress()), 
-                boxVwl.getMemory());  
+                boxStrictVwl.getMemory().find(
+                        ((BoxValue) boxStrictVwl.getValue())
+                                                .getAddress()), 
+                boxStrictVwl.getMemory());  
         }
         return null;
     }

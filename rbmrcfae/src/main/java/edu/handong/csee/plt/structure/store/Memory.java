@@ -3,6 +3,7 @@ package edu.handong.csee.plt.structure.store;
 import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.exception.MemoryNotAllocatedException;
 import edu.handong.csee.plt.structure.value.Value;
+import edu.handong.csee.plt.structure.store.Memory;
 
 public class Memory {
     private int address;

@@ -8,7 +8,6 @@ import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
 import edu.handong.csee.plt.structure.value.BoxValue;
-import edu.handong.csee.plt.structure.value.Value;
 
 public class NewBoxInterprete extends Interprete {
     
@@ -23,16 +22,17 @@ public class NewBoxInterprete extends Interprete {
             ValueWithLog valueVwl = 
                     new Interpreter().interprete(node.getValue(), 
                                                  variable, memory);
-            Value valueValue = valueVwl.getValue().strict();
+            ValueWithLog valueStrictVwl = 
+                    valueVwl.getValue().strict(valueVwl.getMemory());
             int address = 
-                    valueVwl.getMemory() == null 
+                    valueStrictVwl.getMemory() == null 
                         ? 0 : valueVwl.getMemory().getMaxAddress() + 1;
             
             return new ValueWithLog(new BoxValue(address), 
                                     new Memory(address, 
-                                               valueValue, 
-                                               valueVwl.getMemory(), 
-                                               address + 1));
+                                               valueStrictVwl.getValue(), 
+                                               valueStrictVwl.getMemory(), 
+                                               address));
         }
         return null;
     }

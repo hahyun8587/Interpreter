@@ -1,5 +1,8 @@
 package edu.handong.csee.plt.structure.value;
 
+import edu.handong.csee.plt.structure.ValueWithLog;
+import edu.handong.csee.plt.structure.store.Memory;
+
 public class BooleanValue extends Value {
     private boolean bool;
     
@@ -12,8 +15,8 @@ public class BooleanValue extends Value {
     }
 
     @Override 
-    public Value strict() {
-        return this;    
+    public ValueWithLog strict(Memory memory) {
+        return new ValueWithLog(this, memory);    
     }
 
     @Override 
