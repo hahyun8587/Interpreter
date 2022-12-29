@@ -12,7 +12,6 @@ import edu.handong.csee.plt.exception.handler.interprete.IdTypeExceptionHandler;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
-import edu.handong.csee.plt.structure.value.RefClosureValue;
 
 public class ReAppInterprete extends AppInterprete {
 
@@ -26,17 +25,10 @@ public class ReAppInterprete extends AppInterprete {
                                         throws InterpreteException {
         interpreter.setMethod(new RecInterprete());
 
-        if (ast instanceof App) {
-            return appInterprete((App) ast, variable, memory);
+        if (ast instanceof App && functionStrictVwl != null) {
+            return appInterprete((App) ast, variable);
         }
         return null;
-    }
-
-    @Override 
-    protected boolean checkFunctionType(AST function, 
-                                        Variable variable, Memory memory) 
-                                                throws InterpreteException {
-        return functionStrictVwl.getValue() instanceof RefClosureValue; 
     }
 
     @Override 

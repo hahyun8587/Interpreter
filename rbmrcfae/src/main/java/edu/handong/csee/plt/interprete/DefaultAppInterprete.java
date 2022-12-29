@@ -7,6 +7,7 @@ import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
+import edu.handong.csee.plt.structure.value.ClosureValue;
 import edu.handong.csee.plt.structure.value.ExpressionValue;
 import edu.handong.csee.plt.structure.value.ValClosureValue;
 
@@ -18,22 +19,22 @@ public class DefaultAppInterprete extends ValAppInterprete {
                                         throws InterpreteException {
         interpreter.setMethod(new ReAppInterprete());
 
-        if (ast instanceof App) {
-            return appInterprete((App) ast, variable, memory);
+        if (ast instanceof App) { 
+            ValueWithLog tempVwl = 
+                    new Interpreter().interprete(((App) ast).getFunction(), 
+                                                 variable, memory);
+            ValueWithLog tempStrictVwl = 
+                    tempVwl.getValue().strict(tempVwl.getMemory());
+
+            if (tempStrictVwl.getValue() instanceof ClosureValue) {
+                functionStrictVwl = tempStrictVwl;
+
+                if (functionStrictVwl.getValue() instanceof ValClosureValue) {
+                    return appInterprete((App) ast, variable);
+                }
+            }
         }
         return null;
-    }
-
-    @Override 
-    protected boolean checkFunctionType(AST function, 
-                                        Variable variable, Memory memory) 
-                                                throws InterpreteException {
-        functionVwl = new Interpreter().interprete(function, variable, memory);
-        functionStrictVwl = 
-                functionVwl.getValue()
-                           .strict(functionVwl.getMemory());
-        
-        return functionStrictVwl.getValue() instanceof ValClosureValue;
     }
 
     @Override 

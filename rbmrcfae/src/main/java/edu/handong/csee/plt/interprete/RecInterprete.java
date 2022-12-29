@@ -27,26 +27,19 @@ public class RecInterprete extends ValAppInterprete {
         interpreter.setMethod(new IfInterprete());
 
         if (ast instanceof Rec) {
-            Rec node = (Rec) ast;
+            App node = 
+                    new App(new ValFun(((Rec) ast).getFunctionName(), 
+                                       ((Rec) ast).getExpression()), 
+                            ((Rec) ast).getFunction());
+            ValueWithLog tempVwl = 
+                    new Interpreter().interprete(node.getFunction(), 
+                                                 variable, memory);
 
-            return appInterprete(new App(new ValFun(node.getFunctionName(), 
-                                                    node.getExpression()), 
-                                         node.getFunction()), 
-                                 variable, memory); 
+            functionStrictVwl = tempVwl.getValue().strict(tempVwl.getMemory());
+
+            return appInterprete(node, variable); 
         }
         return null;
-    }
-
-    @Override 
-    protected boolean checkFunctionType(AST function, 
-                                        Variable variable, Memory memory) 
-                                                throws InterpreteException {
-        functionVwl = new Interpreter().interprete(function, variable, memory);
-        functionStrictVwl = 
-                functionVwl.getValue()
-                           .strict(functionVwl.getMemory());
-
-        return true;
     }
 
     @Override 
