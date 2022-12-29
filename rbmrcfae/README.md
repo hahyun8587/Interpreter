@@ -41,8 +41,6 @@
 
 
 ## Architecture
-
-
 - ast
   - ast nodes
 - exception
@@ -54,13 +52,14 @@
     - trinary parse
     - binding parse
     - fun parse
-- interprte
+- interprete
   - interpreting methods
     - binary interprete
-    - binding interprete
+    - app interprete
 - structure
-  - structures for variables and memory
+  - variable: structure for variable with its address
+  - memory: structure for memory with the actual value
 - sugar
-  - with node
+  - with node 
 - util
   - option to show exprV memory or unwrapped memory 

@@ -20,7 +20,6 @@ public class Interpreter {
 			ValueWithLog vwl = method.interprete(this, ast, variable, memory);
 
 			if (vwl != null) {
-				//System.out.printf("vwl: %s", vwl.getASTCode());
 				return vwl;
 			}
 		}
