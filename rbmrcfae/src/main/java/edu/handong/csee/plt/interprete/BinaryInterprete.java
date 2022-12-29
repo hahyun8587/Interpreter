@@ -32,9 +32,6 @@ public abstract class BinaryInterprete extends Interprete {
 
         checkLhs(lhsStrictVwl.getValue(), lhs);
         
-        System.out.println(lhsStrictVwl.getMemory().getASTCode());
-        System.out.println(lhsStrictVwl.getValue().getASTCode());
-        
         rhsVwl = new Interpreter().interprete(rhs, variable, lhsStrictVwl.getMemory());
         rhsStrictVwl = rhsVwl.getValue().strict(rhsVwl.getMemory());
 

@@ -30,10 +30,6 @@ public class OpenBoxInterprete extends Interprete {
                                                  variable, memory);
             ValueWithLog boxStrictVwl = 
                     boxVwl.getValue().strict(boxVwl.getMemory());
-            
-            System.out.printf("boxValue without strict in OpenBoxInterprete: %s\n", boxStrictVwl.getValue().getASTCode());   
-            System.out.printf("memory in OpenBoxInterprete: %s\n", boxStrictVwl.getMemory().getASTCode());                  
-            System.out.println(boxStrictVwl.getValue().getASTCode());
 
             ((ValueTypeExceptionHandler)handler).handleException(boxStrictVwl.getValue(), 
                                                                 node.getBox()); 

@@ -6,20 +6,44 @@ import edu.handong.csee.plt.structure.value.Value;
 import edu.handong.csee.plt.structure.store.Memory;
 
 public class Memory {
+    private static int maxAddress = -1;
     private int address;
     private Value value;
     private Memory next;
-    private int maxAddress;
     
-    public Memory(int address, Value value, Memory next, int maxAddress) {
+    /**
+     * Initiates this instance with the given address and value.
+     * @param address address
+     * @param value value
+     * @param next next memory
+     */
+    public Memory(int address, Value value, Memory next) {
         this.address = address;
         this.value = value;
         this.next = next;
-        this.maxAddress = maxAddress;
+    }
+
+    /**
+     * Initiates this instance with the <code>maxAddress + 1</code> and the given value.
+     * @param value value
+     * @param next next memory
+     */
+    public Memory(Value value, Memory next) {
+        address = ++maxAddress;
+        this.value = value;
+        this.next = next;
     }
 
     public int getMaxAddress() {
         return maxAddress;
+    }
+
+    public Memory getNext() {
+        return next;
+    }
+
+    public void setNext(Memory next) {
+        this.next = next;
     }
 
      /**
@@ -40,6 +64,21 @@ public class Memory {
         }
         throw new MemoryNotAllocatedException(address);
     }
+
+    /**
+     * Gets the number of <code>Memory</code> instance linked with this instance including itself.
+     * @return the size of this instance.
+     */
+    public int size() {
+        Memory curr = this;
+        int count = 0;
+
+        while (curr != null) {
+            count++;
+            curr = curr.next;
+        }
+        return count;
+    } 
 
     public String getASTCode() throws InterpreteException {
         return "(aSto " + String.valueOf(address) + " " 

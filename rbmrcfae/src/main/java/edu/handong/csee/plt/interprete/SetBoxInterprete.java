@@ -48,8 +48,7 @@ public class SetBoxInterprete extends BinaryInterprete {
         return new ValueWithLog(rhsValue, 
                                 new Memory(((BoxValue) lhsValue).getAddress(),
                                            rhsValue, 
-                                           latest,
-                                           latest.getMaxAddress()));
+                                           latest));
     }
 
 }

@@ -6,8 +6,6 @@ import edu.handong.csee.plt.exception.InterpreteException;
 import edu.handong.csee.plt.structure.ValueWithLog;
 import edu.handong.csee.plt.structure.store.Memory;
 import edu.handong.csee.plt.structure.store.Variable;
-import edu.handong.csee.plt.structure.store.update.NewBoxUpdate;
-import edu.handong.csee.plt.structure.store.update.Update;
 import edu.handong.csee.plt.util.Option;
 
 public class ExpressionValue extends Value {
@@ -15,7 +13,6 @@ public class ExpressionValue extends Value {
     private Variable variable;
     private Memory memory;
     private Value value;
-    private Update method = new NewBoxUpdate();
 
     public ExpressionValue(AST expression, Variable variable, Memory memory, Value value) {
         this.expression = expression;
@@ -29,35 +26,37 @@ public class ExpressionValue extends Value {
         if (value != null) {
             return new ValueWithLog(value, global);
         }
-
-        ValueWithLog expressionVwl 
-                = new Interpreter().interprete(expression, variable, memory);
-          
-      
-
-        /** 
-        ValueWithLog strictVwl = 
-                expressionVwl.getValue().strict(global);
-        **/
-        value = expressionVwl.getValue();
         
-        Memory updated = null;
+        ValueWithLog expressionVwl, strictVwl;
+        int numAdded;
+        int memorySize, updatedSize; 
+        Memory updated;
+ 
+        expressionVwl 
+                = new Interpreter().interprete(expression, variable, memory);
+        memorySize = memory == null ? 0 : memory.size();
+        updatedSize = 
+                expressionVwl.getMemory() == null 
+                        ? 0 : expressionVwl.getMemory().size();
+        numAdded = updatedSize - memorySize;
+        
+        if (numAdded == 0) {
+            updated = global;
+        } else {
+            Memory last;
 
-        while (method != null) {
-            updated = 
-                    method.update(this, expression, 
-                                  variable, 
-                                  global, expressionVwl.getMemory());
+            updated = expressionVwl.getMemory();
+            last = updated;
 
-            if (updated != null) {
-                break;
+            for (int i = 1; i <= numAdded - 1; i++) {
+                last = last.getNext();
             }
+            last.setNext(global);
         }
-        return new ValueWithLog(value, updated);
-    }
+        strictVwl = expressionVwl.getValue().strict(updated);  
+        value = strictVwl.getValue();
 
-    public void setMethod(Update method) {
-        this.method = method; 
+        return new ValueWithLog(strictVwl.getValue(), strictVwl.getMemory());
     }
 
     public Memory getMemory() {

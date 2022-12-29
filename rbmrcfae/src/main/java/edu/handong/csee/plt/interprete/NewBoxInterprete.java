@@ -24,15 +24,18 @@ public class NewBoxInterprete extends Interprete {
                                                  variable, memory);
             ValueWithLog valueStrictVwl = 
                     valueVwl.getValue().strict(valueVwl.getMemory());
+            
+            /** 
             int address = 
                     valueStrictVwl.getMemory() == null 
                         ? 0 : valueVwl.getMemory().getMaxAddress() + 1;
-            
-            return new ValueWithLog(new BoxValue(address), 
-                                    new Memory(address, 
-                                               valueStrictVwl.getValue(), 
-                                               valueStrictVwl.getMemory(), 
-                                               address));
+            **/
+
+            Memory updated = new Memory(valueStrictVwl.getValue(), 
+                                        valueStrictVwl.getMemory());
+
+            return new ValueWithLog(new BoxValue(updated.getMaxAddress()), 
+                                    updated);
         }
         return null;
     }

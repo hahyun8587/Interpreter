@@ -16,9 +16,13 @@ public abstract class AppInterprete extends Interprete {
 	protected static ValueWithLog functionStrictVwl;
 
     /**
-     * Interpretes the given binding AST node into the appropriate <code>ValueWithLog</code> instance.
+     * Interpretes the given <code>App</code> AST node into the appropriate <code>ValueWithLog</code> instance.
+	 * Threre are three cases using this method: 
+	 * 1.<code>App</code> node from Rec node
+	 * 2.<code>App</code> node that has <code>ReFun</code> node in its <code>function</code>  
+	 * 3.<code>App</code> node that has <code>ValFun</code> node in its <code>function</code>
      * @param interpreter interpreter
-     * @param node the binding AST node
+     * @param node the <code>App</code> AST node
      * @param variable variable
      * @param memory memory
      * @return the appropriate <code>ValueWithLog</code> instance
@@ -30,29 +34,14 @@ public abstract class AppInterprete extends Interprete {
 		if (!checkFunctionType(node.getFunction(), variable, memory)) {
 			return null;
 		}
-		
-		System.out.println("functionVwl in appInterprete: " + functionVwl.getASTCode());
-
-		System.out.println("function strict value in appInterprete: " + functionStrictVwl.getValue().getASTCode());
-
         checkArgumentType(node.getArgument());
 
         int address = getAddress(functionStrictVwl.getMemory(), 
                                  variable, node.getArgument());
-		
-		System.out.printf("address in appInterprete: %d\n", address);
-        
 		Variable updated = 
                 new Variable(((ClosureValue) functionStrictVwl.getValue()).getParameter(), 
                 			 address,
                 			 ((ClosureValue) functionStrictVwl.getValue()).getVariable());
-		
-		System.out.printf("variables in appInterprete: %s\n", updated.getASTCode());
-        System.out.printf("memory in appInterprete: %s\n", 
-						  createMemory(address, 
-									   node.getArgument(), variable, updated, 
-									   functionStrictVwl.getMemory()).getASTCode());
-		
         ValueWithLog retVwl =  
                 new Interpreter().interprete(
                         ((ClosureValue) functionStrictVwl.getValue()).getBody(),

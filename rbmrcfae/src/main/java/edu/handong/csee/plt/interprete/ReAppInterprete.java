@@ -36,7 +36,6 @@ public class ReAppInterprete extends AppInterprete {
     protected boolean checkFunctionType(AST function, 
                                         Variable variable, Memory memory) 
                                                 throws InterpreteException {
-        System.out.println("value of functionStrictVwl :" + functionStrictVwl.getValue().getASTCode());
         return functionStrictVwl.getValue() instanceof RefClosureValue; 
     }
 

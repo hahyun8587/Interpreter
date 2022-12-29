@@ -13,7 +13,7 @@ public class SetVarInterprete extends Interprete {
     @Override 
     public ValueWithLog interprete(Interpreter interpreter,
                                    AST ast, Variable variable, Memory memory) 
-                                            throws InterpreteException {
+                                        throws InterpreteException {
         interpreter.setMethod(null);
 
         if (ast instanceof SetVar) {
@@ -28,8 +28,7 @@ public class SetVarInterprete extends Interprete {
                     valueStrictVwl.getValue(), 
                     new Memory(variable.find(node.getName()),
                                valueStrictVwl.getValue(),
-                               valueStrictVwl.getMemory(),
-                               valueStrictVwl.getMemory().getMaxAddress()));
+                               valueStrictVwl.getMemory()));
         }
         return null;
     }
